@@ -1,0 +1,600 @@
+{
+  "name": "Auto Responder GMail",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c7636095-ba47-4e39-9aa2-58b59c8b6bb3",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aDDoGFLHvLi6vRUB",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "emailType": "text",
+        "message": "={{ $('Format Suggestions').item.json.lines[0] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1460,
+        -200
+      ],
+      "id": "645da27a-d509-470c-9335-214c6e9b0b72",
+      "name": "Option 1",
+      "webhookId": "4369ce61-0354-4652-a7fd-c2a19b0059f3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aDDoGFLHvLi6vRUB",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "message": "={{ $('Format Suggestions').item.json.lines[1] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1460,
+        0
+      ],
+      "id": "7658ce0c-4bc7-4ecf-94a0-952fd97a23b5",
+      "name": "Option 2",
+      "webhookId": "b3738fff-5184-4ad1-a4e1-9f8fae9707ad",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aDDoGFLHvLi6vRUB",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "message": "={{ $('Format Suggestions').item.json.lines[2] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1460,
+        200
+      ],
+      "id": "70c8f3c5-ecf6-49a1-a243-a3d234db1da6",
+      "name": "Option 3",
+      "webhookId": "4dfc74e7-dc0f-4c80-97c2-1ae4cc91105b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aDDoGFLHvLi6vRUB",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "message": "={{ $('Format Suggestions').item.json.lines[3] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1460,
+        420
+      ],
+      "id": "057e75db-d30f-4d05-adec-7591422d6e75",
+      "name": "Custom Reply",
+      "webhookId": "da8a9ce2-6267-477b-a6e7-f87d8276b4a3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aDDoGFLHvLi6vRUB",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "sendAndWait",
+        "user": {
+          "__rl": true,
+          "value": "U08QNAFRU73",
+          "mode": "list",
+          "cachedResultName": "krunal"
+        },
+        "message": "=Please select from the below three AI generated replies:\n[1] {{ $json.lines[0] }}\n[2] {{ $json.lines[1] }}\n[3] {{ $json.lines[2] }}\n[4] Type custom reply and it will be sent directly",
+        "responseType": "customForm",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Please enter the number which is best fit reply for you:",
+              "fieldType": "number",
+              "placeholder": "1",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        840,
+        0
+      ],
+      "id": "a68c05b8-3628-435f-8530-d503fcf205e3",
+      "name": "Suggestions",
+      "webhookId": "af7c75f5-6da6-4680-8bcf-40b1ca0d553a",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "qxYXHqg5Vawbjezu",
+          "name": "Slack - Cleverviral"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b08d4633-f832-4c49-8109-1f62065fa464",
+              "name": "data['Please enter the number which is best fit reply for you:']",
+              "value": "={{ $json.data['Please enter the number which is best fit reply for you:'] }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1020,
+        0
+      ],
+      "id": "a33c1a92-07c9-49be-a2f0-e28386a8a230",
+      "name": "Reply"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "U08QNAFRU73",
+          "mode": "list",
+          "cachedResultName": "krunal"
+        },
+        "text": "Your message has been sent.",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        1740,
+        0
+      ],
+      "id": "8b1293cd-a19b-4aef-a46c-66aa10a8c82a",
+      "name": "Notification",
+      "webhookId": "ebca3ff1-8303-4f2e-b50c-2506b4b5965f",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "qxYXHqg5Vawbjezu",
+          "name": "Slack - Cleverviral"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1960,
+        0
+      ],
+      "id": "64246eea-7095-45d8-a52b-17603f4e87dc",
+      "name": "Marking as Read",
+      "webhookId": "21320194-cbfe-4e0c-8010-ec7ebd224878",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "aDDoGFLHvLi6vRUB",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "df50249b-e2c1-411e-b075-0dd1e5c474f2",
+              "name": "Subject",
+              "value": "={{ $json.Subject }}",
+              "type": "string"
+            },
+            {
+              "id": "8243e61f-9f5b-4f11-be6a-a6ab51678945",
+              "name": "From",
+              "value": "={{ $json.From }}",
+              "type": "string"
+            },
+            {
+              "id": "0ae07654-7372-4c51-a832-492b3f009ee0",
+              "name": "To",
+              "value": "={{ $json.To }}",
+              "type": "string"
+            },
+            {
+              "id": "1a784739-8045-4323-b80a-effdfff75c8a",
+              "name": "snippet",
+              "value": "={{ $json.snippet }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        160,
+        0
+      ],
+      "id": "a8e127bf-3ac2-4f21-9c28-dc80ece4fc38",
+      "name": "Mail Details"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=I received an email from  {{ $json.From }}. They are asking about {{ $json.snippet }}. Write more about the services I can provide. Write three paragraph mentioning three different forms of reply. Do not write anything about subject or certainly here's the reply etc. Just write three paragraph and that's it. No need to write signature section. Just warm regards. "
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        320,
+        0
+      ],
+      "id": "b749a968-7655-4bae-8fc8-823125301afb",
+      "name": "Responder",
+      "credentials": {
+        "openAiApi": {
+          "id": "xEGeNQZgWUZ12rbY",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst updatedItems = items.map((item) => {\n  const lines = item?.json?.message?.content\n    ?.split(\"\\n\")\n    .filter((line) => line.trim() !== \"\");\n  return { lines };\n});\nreturn updatedItems;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        0
+      ],
+      "id": "46b434fa-2226-4f60-8edc-2387acebb4c6",
+      "name": "Format Suggestions"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data['Please enter the number which is best fit reply for you:'] }}",
+                    "rightValue": 1,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8a8648ef-8784-41c0-b2a2-db20aa85e06e",
+                    "leftValue": "={{ $json.data['Please enter the number which is best fit reply for you:'] }}",
+                    "rightValue": 2,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "94c6ca12-251a-4513-a5d4-87966a8037f9",
+                    "leftValue": "={{ $json.data['Please enter the number which is best fit reply for you:'] }}",
+                    "rightValue": 3,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8192d693-79c5-4632-9847-0470af5ecafd",
+                    "leftValue": "={{ $json.data['Please enter the number which is best fit reply for you:'] }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1240,
+        0
+      ],
+      "id": "fcc99ccf-c2eb-49a9-976e-bc1ba00db8b7",
+      "name": "Route based on Reply"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Mail Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Option 1": {
+      "main": [
+        [
+          {
+            "node": "Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Option 2": {
+      "main": [
+        [
+          {
+            "node": "Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Option 3": {
+      "main": [
+        [
+          {
+            "node": "Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Custom Reply": {
+      "main": [
+        [
+          {
+            "node": "Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Suggestions": {
+      "main": [
+        [
+          {
+            "node": "Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply": {
+      "main": [
+        [
+          {
+            "node": "Route based on Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notification": {
+      "main": [
+        [
+          {
+            "node": "Marking as Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Marking as Read": {
+      "main": [
+        []
+      ]
+    },
+    "Mail Details": {
+      "main": [
+        [
+          {
+            "node": "Responder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Responder": {
+      "main": [
+        [
+          {
+            "node": "Format Suggestions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Suggestions": {
+      "main": [
+        [
+          {
+            "node": "Suggestions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route based on Reply": {
+      "main": [
+        [
+          {
+            "node": "Option 1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Option 2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Option 3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Custom Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "94d6e357-3a03-4e48-afc7-0f2d7dc85ed3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "155e035c269e06721be15adcca16a8df7ca2f440e69e53064795835bd4a74fd8"
+  },
+  "id": "yBVNw1NM8wVd3hWK",
+  "tags": []
+}
